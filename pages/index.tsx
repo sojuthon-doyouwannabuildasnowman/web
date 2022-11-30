@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 export default function Home({ ssrData }: { ssrData: any }) {
   const [csrData, setCsrData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
-  // test
 
   useEffect(() => {
     setIsLoading(true);
