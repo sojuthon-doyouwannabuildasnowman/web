@@ -29,7 +29,9 @@ export default function Home({ ssrData }: { ssrData: any }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("https://web-omega-one.vercel.app/api/hello");
+  const res = await fetch(
+    "https://web-e5dluy0lm-doyouwannabuildasnowman.vercel.app/api/hello"
+  );
   const ssrData = await res.json();
   return {
     props: {
