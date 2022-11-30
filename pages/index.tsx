@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Home({ ssrData }: { ssrData: any }) {
   const [csrData, setCsrData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,23 +17,23 @@ export default function Home() {
   }, []);
 
   if (isLoading) return <p>Loading...</p>;
-  // if (!ssrData) return <p>No profile data</p>;
+  if (!ssrData) return <p>No profile data</p>;
 
   return (
     <div>
       1: {csrData?.name}
       <br />
-      {/* 2: {ssrData?.name} */}
+      2: {ssrData?.name}
     </div>
   );
 }
 
-// export async function getServerSideProps() {
-//   const res = await fetch("https://web-omega-one.vercel.app/api/hello");
-//   const ssrData = await res.json();
-//   return {
-//     props: {
-//       ssrData,
-//     },
-//   };
-// }
+export async function getServerSideProps() {
+  const res = await fetch("https://web-omega-one.vercel.app/api/hello");
+  const ssrData = await res.json();
+  return {
+    props: {
+      ssrData,
+    },
+  };
+}
