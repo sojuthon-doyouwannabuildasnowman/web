@@ -11,6 +11,8 @@ export default function Home({ ssrData }: { ssrData: any }) {
     fetch("/api/hello")
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
+
         setCsrData(data);
         setIsLoading(false);
       });
@@ -30,7 +32,8 @@ export default function Home({ ssrData }: { ssrData: any }) {
 
 export async function getServerSideProps() {
   const res = await fetch(
-    "https://web-e5dluy0lm-doyouwannabuildasnowman.vercel.app/api/hello"
+    "https://doyouwannabuildasnowman.vercel.app/api/hello"
+    // "http://localhost:3000/api/hello"
   );
   const ssrData = await res.json();
   return {
