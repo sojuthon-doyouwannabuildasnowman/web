@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Home({ ssrData }: { ssrData: any }) {
   const [csrData, setCsrData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,19 +17,26 @@ export default function Home() {
   }, []);
 
   if (isLoading) return <p>Loading...</p>;
+  if (!ssrData) return <p>SSR data is null</p>;
 
-  return <div>1: {csrData?.data}</div>;
+  return (
+    <div>
+      1: {csrData?.data}
+      <br />
+      2: {ssrData?.data}
+    </div>
+  );
 }
 
-// export async function getServerSideProps() {
-//   const res = await fetch(
-//     // "https://doyouwannabuildasnowman.vercel.app/api/hello"
-//     "http://localhost:3000/api/hello"
-//   );
-//   const ssrData = await res.json();
-//   return {
-//     props: {
-//       ssrData,
-//     },
-//   };
-// }
+export async function getServerSideProps(context: any) {
+  const res = await fetch(
+    "https://doyouwannabuildasnowman.vercel.app/api/hello"
+    // "http://localhost:3000/api/hello"
+  );
+  const ssrData = await res.json();
+  return {
+    props: {
+      ssrData,
+    },
+  };
+}
