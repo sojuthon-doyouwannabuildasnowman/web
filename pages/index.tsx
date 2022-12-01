@@ -28,15 +28,15 @@ export default function Home({ ssrData }: { ssrData: any }) {
   );
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(
-    "https://doyouwannabuildasnowman.vercel.app/api/hello"
-    // "http://localhost:3000/api/hello"
-  );
-  const ssrData = await res.json();
-  return {
-    props: {
-      ssrData,
-    },
-  };
-}
+// export async function getServerSideProps() {
+//   const res = await fetch(
+//     // "https://doyouwannabuildasnowman.vercel.app/api/hello"
+//     "http://localhost:3000/api/hello"
+//   );
+//   const ssrData = await res.json();
+//   return {
+//     props: {
+//       ssrData,
+//     },
+//   };
+// }
