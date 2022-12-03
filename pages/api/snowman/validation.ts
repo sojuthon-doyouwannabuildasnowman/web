@@ -12,7 +12,7 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     db.query(
-      "SELECT COUNT(*) FROM snowman WHERE name=?;",
+      "SELECT id FROM snowman WHERE name=?;",
       [req.body.name],
       (err: QueryError | null, result: any) => {
         if (err) {
@@ -20,10 +20,10 @@ export default async function handler(
           return res.status(500).json({ data: "fail" });
         }
         console.log(result);
-        if (result[0]["COUNT(*)"] === 0) {
-          return res.status(200).json({ data: false });
+        if (result.length === 0) {
+          return res.status(200).json({ data: 0 });
         }
-        return res.status(200).json({ data: true });
+        return res.status(200).json({ data: result[0].id });
       }
     );
   } else {
