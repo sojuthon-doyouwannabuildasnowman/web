@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 export const reset = css`
   * {
     box-sizing: border-box;
+    font-family: Pretendard;
   }
   html,
   body {
