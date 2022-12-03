@@ -175,7 +175,7 @@ export default function Info() {
         {hours ? (
           <Timer>{hours + " : " + minutes + " : " + seconds}</Timer>
         ) : (
-          <>21일 남았어요!!</>
+          <>단 21일!</>
         )}
         <Statistics></Statistics>
       </Status>
