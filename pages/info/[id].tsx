@@ -83,11 +83,7 @@ export default function Info() {
   const [userName, setUserName] = useState<string>("");
 
   const targetDate = new Date("2022-12-25 00:00:00");
-  let hours, minutes, seconds;
-
-  useEffect(() => {
-    Countdown(targetDate);
-  }, []);
+  const [hours, minutes, seconds] = Countdown(targetDate);
 
   useEffect(() => {
     if (id === undefined) return;
