@@ -336,7 +336,7 @@ const Next = styled.div``;
 
 const Container = styled.div`
   display: flex;
-  height: 100vh;
+  height: auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -350,6 +350,7 @@ const H2 = styled.h2`
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
+  margin-top: 100px;
 `;
 
 const Status = styled.div`
