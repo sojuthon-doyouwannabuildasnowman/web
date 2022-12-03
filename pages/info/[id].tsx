@@ -4,73 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const doCopy = (text: any) => {
-  // 흐음 1.
-  if (navigator.clipboard) {
-    // (IE는 사용 못하고, 크롬은 66버전 이상일때 사용 가능합니다.)
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        alert("클립보드에 복사되었습니다.");
-      })
-      .catch(() => {
-        alert("복사를 다시 시도해주세요.");
-      });
-  } else {
-    // 흐름 2.
-    if (!document.queryCommandSupported("copy")) {
-      return alert("복사하기가 지원되지 않는 브라우저입니다.");
-    }
-
-    // 흐름 3.
-    const textarea: any = document.createElement("textarea");
-    textarea.value = text;
-    textarea.style.top = 0;
-    textarea.style.left = 0;
-    textarea.style.position = "fixed";
-
-    // 흐름 4.
-    document.body.appendChild(textarea);
-    // focus() -> 사파리 브라우저 서포팅
-    textarea.focus();
-    // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
-    textarea.select();
-    // 흐름 5.
-    document.execCommand("copy");
-    // 흐름 6.
-    document.body.removeChild(textarea);
-    alert("클립보드에 복사되었습니다.");
-  }
-};
-
-const getReturnValues = (countDown: number) => {
-  // calculate time left
-  const days = Math.floor(countDown / (1000 * 60 * 60 * 24));
-  const hours = Math.floor(
-    (countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
-  const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
-
-  return [hours + days * 24, minutes, seconds];
-};
-
-const Countdown = (targetDate: Date): Number[] => {
-  const countDownDate = new Date(targetDate).getTime();
-
-  const [countDown, setCountDown] = useState(
-    countDownDate - new Date().getTime()
-  );
-
-  useEffect(() => {
-    setInterval(() => {
-      setCountDown(countDownDate - new Date().getTime());
-    }, 1000);
-  }, [countDownDate]);
-
-  return getReturnValues(countDown);
-};
-
 export default function Info() {
   const router = useRouter();
   const { id } = router.query;
@@ -83,6 +16,73 @@ export default function Info() {
   const [userName, setUserName] = useState<string>("");
 
   const targetDate = new Date("2022-12-25 00:00:00");
+
+  const doCopy = (text: any) => {
+    // 흐음 1.
+    if (navigator.clipboard) {
+      // (IE는 사용 못하고, 크롬은 66버전 이상일때 사용 가능합니다.)
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          alert("클립보드에 복사되었습니다.");
+        })
+        .catch(() => {
+          alert("복사를 다시 시도해주세요.");
+        });
+    } else {
+      // 흐름 2.
+      if (!document.queryCommandSupported("copy")) {
+        return alert("복사하기가 지원되지 않는 브라우저입니다.");
+      }
+
+      // 흐름 3.
+      const textarea: any = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.top = 0;
+      textarea.style.left = 0;
+      textarea.style.position = "fixed";
+
+      // 흐름 4.
+      document.body.appendChild(textarea);
+      // focus() -> 사파리 브라우저 서포팅
+      textarea.focus();
+      // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
+      textarea.select();
+      // 흐름 5.
+      document.execCommand("copy");
+      // 흐름 6.
+      document.body.removeChild(textarea);
+      alert("클립보드에 복사되었습니다.");
+    }
+  };
+
+  const getReturnValues = (countDown: number) => {
+    // calculate time left
+    const days = Math.floor(countDown / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
+
+    return [hours + days * 24, minutes, seconds];
+  };
+
+  const Countdown = (targetDate: Date): Number[] => {
+    const countDownDate = new Date(targetDate).getTime();
+
+    const [countDown, setCountDown] = useState(
+      countDownDate - new Date().getTime()
+    );
+
+    useEffect(() => {
+      setInterval(() => {
+        setCountDown(countDownDate - new Date().getTime());
+      }, 1000);
+    }, [countDownDate]);
+
+    return getReturnValues(countDown);
+  };
   const [hours, minutes, seconds] = Countdown(targetDate);
 
   useEffect(() => {
