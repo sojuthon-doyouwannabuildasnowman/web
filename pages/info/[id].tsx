@@ -65,6 +65,8 @@ export default function Info() {
     const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
 
+    console.log(days, hours, minutes);
+
     return [hours + days * 24, minutes, seconds];
   };
 
@@ -170,7 +172,11 @@ export default function Info() {
       )}
       <H2>마음이 전해지기까지</H2>
       <Status>
-        <Timer>{hours + " : " + minutes + " : " + seconds}</Timer>
+        {hours ? (
+          <Timer>{hours + " : " + minutes + " : " + seconds}</Timer>
+        ) : (
+          <>21일 남았어요!!</>
+        )}
         <Statistics></Statistics>
       </Status>
       <Name>
