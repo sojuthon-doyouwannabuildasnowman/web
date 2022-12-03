@@ -15,7 +15,11 @@ export default async function handler(
       "SELECT COUNT(*) FROM snowman WHERE name=?;",
       [req.body.name],
       (err: QueryError | null, result: any) => {
-        if (err) return res.status(500).json({ data: "fail" });
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ data: "fail" });
+        }
+        console.log(result);
         if (result[0]["COUNT(*)"] === 0) {
           return res.status(200).json({ data: false });
         }

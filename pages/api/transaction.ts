@@ -16,13 +16,21 @@ export default async function handler(
       "INSERT INTO transaction (contributor, snowman_id, section, amount) VALUES (?, ?, ?, ?);",
       [contributor, snowman_id, section, amount],
       (err: QueryError | null, result: any) => {
-        if (err) return res.status(500).json({ data: "fail" });
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ data: "fail" });
+        }
+        console.log(result);
         if (section === "head") {
           db.query(
             "UPDATE snowman SET head=head+? WHERE id=?;",
             [amount, snowman_id],
             (err: QueryError | null, result: any) => {
-              if (err) return res.status(500).json({ data: "fail" });
+              if (err) {
+                console.log(err);
+                return res.status(500).json({ data: "fail" });
+              }
+              console.log(result);
               return res.status(200).json({ data: "success" });
             }
           );
@@ -31,7 +39,11 @@ export default async function handler(
             "UPDATE snowman SET body=body+? WHERE id=?;",
             [amount, snowman_id],
             (err: QueryError | null, result: any) => {
-              if (err) return res.status(500).json({ data: "fail" });
+              if (err) {
+                console.log(err);
+                return res.status(500).json({ data: "fail" });
+              }
+              console.log(result);
               return res.status(200).json({ data: "success" });
             }
           );

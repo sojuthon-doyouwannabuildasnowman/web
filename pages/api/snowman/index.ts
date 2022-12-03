@@ -15,7 +15,11 @@ export default async function handler(
       "INSERT INTO snowman (name) VALUES (?);",
       [req.body.name],
       (err: QueryError | null, result: any) => {
-        if (err) return res.status(500).json({ data: "fail" });
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ data: "fail" });
+        }
+        console.log(result);
         return res.status(201).json({ data: result.insertId });
       }
     );
