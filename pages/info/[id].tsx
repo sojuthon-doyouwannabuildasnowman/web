@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { useRouter } from "next/router";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const doCopy = (text: any) => {
   // 흐음 1.
@@ -90,8 +90,8 @@ export default function Info() {
     fetch("/api/snowman/" + id)
       .then((res) => res.json())
       .then((data) => {
-        setHead(data.data.head);
-        setBody(data.data.body);
+        setHead(data.data.head + 1);
+        setBody(data.data.body + 1);
         setName(data.data.name);
       });
   }, [id]);
@@ -186,20 +186,16 @@ export default function Info() {
           height={20}
         />
       </Name>
-      <Image
-        style={{ position: "absolute", transform: "translate(0, 0px)" }}
-        src="/snowmanHead.svg"
-        alt="head"
-        width={191}
-        height={191}
-      />
-      <Image
-        style={{ position: "absolute", transform: "translate(0, 100px)" }}
-        src="/snowmanBody.svg"
-        alt="body"
-        width={191}
-        height={191}
-      />
+      <SnowmanBlock>
+        <SnowmanSection
+          src="/snowmanHead.svg"
+          size={(head / (head + body)) * 100}
+        />
+        <SnowmanSection
+          src="/snowmanBody.svg"
+          size={(body / (head + body)) * 100}
+        />
+      </SnowmanBlock>
       <Contribute
         onClick={() => {
           setIsModal(true);
@@ -354,7 +350,7 @@ const Status = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 210px;
+  width: 220px;
   border-bottom: 1px solid #fff;
   font-weight: 600;
   font-size: 36px;
@@ -385,6 +381,7 @@ const Name = styled.div`
 const Contribute = styled.div`
   width: 380px;
   height: 60px;
+  margin-top: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -395,7 +392,6 @@ const Contribute = styled.div`
   color: #537d93;
   background: #ffffff;
   border-radius: 4px;
-  margin-top: 489px;
 `;
 
 const Create = styled.div`
@@ -409,5 +405,24 @@ const Create = styled.div`
   margin-top: 20px;
   a {
     all: unset;
+  }
+`;
+
+const SnowmanBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 382px;
+  margin-top: 65px;
+`;
+
+interface SnowmanSectionProps {
+  size: number;
+}
+
+const SnowmanSection = styled.img<SnowmanSectionProps>`
+  height: ${({ size }) => size}%;
+  &:nth-of-type(2n) {
+    margin-top: -3px;
   }
 `;
