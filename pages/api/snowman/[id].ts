@@ -12,8 +12,8 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     db.query(
-      "SELECT head, body FROM snowman WHERE id=?;",
-      [req.query],
+      "SELECT head, body, name FROM snowman WHERE id=?;",
+      [req.query.id],
       (err: QueryError | null, result: any) => {
         if (err) {
           console.log(err);
@@ -22,6 +22,7 @@ export default async function handler(
         console.log(result);
         return res.status(201).json({
           data: {
+            name: result[0].name,
             head: result[0].head,
             body: result[0].body,
           },
