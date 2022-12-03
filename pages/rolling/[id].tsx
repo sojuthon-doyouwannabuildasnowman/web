@@ -90,6 +90,7 @@ const Desc = styled.div`
   color: #fff;
   font-weight: 600;
   font-size: 20px;
+  z-index: 5;
 `;
 const BorderBlock = styled.div`
   display: flex;
@@ -183,6 +184,7 @@ export default function Rolling() {
         <Point>{point}</Point>
       </PointBlock>
       <GroundBlock>
+        <Desc>눈덩이를 굴려주세요</Desc>
         <Ground src="/ground.svg" />
         <Snowman
           src={section === "head" ? "/snowmanHead.svg" : "/snowmanBody.svg"}
