@@ -71,6 +71,45 @@ const BackgroundTree = styled.div<PointProps>`
   background-repeat: repeat-x;
   background-size: calc(${({ point }) => 350 - point / 2}%);
 `;
+const BlackGround = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  cursor: pointer;
+`;
+const Desc = styled.div`
+  position: absolute;
+  bottom: 550px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+`;
+const BorderBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("/snowmanBorder.svg");
+  background-size: cover;
+  width: 240px;
+  height: 240px;
+  position: absolute;
+  bottom: 275px;
+`;
+const ClickIcon = styled.img``;
+const TouchText = styled.div`
+  font-weight: 600;
+  font-size: 20px;
+  color: #fff;
+  margin-top: 5px;
+`;
 
 const pointChange = debounce(
   (
@@ -108,6 +147,7 @@ export default function Rolling() {
   const { id, userName, section } = router.query;
   const [point, setPoint] = useState(0);
   const [prevPoint, setPrevPoint] = useState(0);
+  const [displayBlackGround, setDisplayBlackGround] = useState(true);
 
   const onClickSnowman = useCallback(() => {
     setPoint(point + 1);
@@ -118,11 +158,26 @@ export default function Rolling() {
   };
 
   useEffect(() => {
+    if (point === 0) return;
     pointChange(id, userName, section, point, prevPoint, setPrevPoint);
   }, [point]);
 
   return (
     <Section>
+      {displayBlackGround && (
+        <BlackGround
+          onClick={() => {
+            setDisplayBlackGround(false);
+          }}
+        >
+          <Desc>눈덩이를 굴려주세요</Desc>
+          <BorderBlock>
+            <ClickIcon src="/clickIcon.svg" />
+            <TouchText>Touch</TouchText>
+          </BorderBlock>
+        </BlackGround>
+      )}
+
       <PointBlock>
         <Text>친구를 향한 나의 마음</Text>
         <Point>{point}</Point>
