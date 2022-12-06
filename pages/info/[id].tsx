@@ -175,7 +175,7 @@ export default function Info() {
         {hours ? (
           <Timer>{hours + " : " + minutes + " : " + seconds}</Timer>
         ) : (
-          <>D-Day 19</>
+          <>D-Day 18</>
         )}
         <Statistics></Statistics>
       </Status>
