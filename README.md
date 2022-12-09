@@ -1,4 +1,4 @@
-# 소주톤 우승 서비스
+#  doyouwannabuildasnowman - 2022 소주톤 우승팀
 ### 이벤트 정보: https://festa.io/events/2892
 - 기획: 김민준
 - 디자인: 이수연, 신지은
